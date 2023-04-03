@@ -1,0 +1,18 @@
+if test $# -eq 0; then
+	echo "Usage: phone searchfor [...searchfor]"
+	echo "(You didn't tell me what you want to search for.)"
+else
+	temp=$1
+	for tmp in $@
+	do
+		if test "$tmp" != "$1"; then
+			temp="$temp|$tmp"
+		fi
+	done
+	egrep -i "($temp)" mydata  > text
+	awk -f awkfile.awk text
+
+	rm text
+fi
+
+
